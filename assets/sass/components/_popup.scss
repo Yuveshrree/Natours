@@ -1,0 +1,127 @@
+.popup {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    // padding: 16.5rem 12rem;
+    background-color: rgba($color-black, .8);
+    z-index: 150;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 200ms ;
+
+    // Graceful degradation: We ask the browser if it supports the below feature, if yes then we apply the below, if not the above background-color is applied.
+    
+    @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        background-color: rgba($color-black, .3);
+    }
+
+    &__content {
+        // width: 90%;
+        // height: 100%;
+        // margin: 0 auto;
+        width: 75%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(.25);
+        background-color: $color-white;
+        box-shadow: 0 2rem 4rem rgba($color-black, .2);
+        border-radius: 3px;
+        display: table;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 400ms 100ms;
+
+        @include respond(tab-port) {
+            display: inherit;
+        }
+    }
+
+    &__left {
+        width: 33.333333%;
+        display: table-cell;
+
+        @include respond(tab-port) {
+            width: auto;
+            display: flex;
+        }
+    }
+
+    &__img {
+        display: block;
+        width: 100%;
+
+        @include respond(tab-port) {
+            display: block;
+            width: 50%;
+        }
+    }
+
+    &__right {
+        width: 66.666667%;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 3rem 5rem;
+
+        @include respond(tab-port) {
+            width: auto;
+            display: inherit;
+            text-align: center;
+            vertical-align: unset;
+        }
+    }
+
+    &__text {
+        font-size: 1.4rem;
+        margin-bottom: 4rem ;
+        column-count: 2;
+        column-gap: 4rem; //default gap is 1em, where em would inherit the styles of the class, so here 1em = 14px because font-size is 1.4rem(14px)
+        column-rule: 1px solid $color-light-grey-2;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+
+        @include respond(tab-port) {
+            column-count: auto;
+            column-gap: 0;
+            column-rule: none;
+            text-align: left;
+        }
+    }
+
+    //Popup Opened
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &:target &__content {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &__close {
+        &:link,
+        &:visited {
+            display: inline-block;
+            color: $color-grey-dark;
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 3rem;
+            text-decoration: none;
+            line-height: 1;
+            transition: all 200ms;
+        }
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+
+}

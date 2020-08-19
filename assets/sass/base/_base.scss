@@ -1,0 +1,48 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit; /* Inherit from body element and applies it to all elements */
+}
+
+html {
+    //defines 1rem
+    font-size: 62.5%; /* Making all font-sizes in rem 
+    will make it easier while doing responsive layout. Making the root element to be
+    10px makes it easy to caluclate rem's 1rem = 10px. But having it in pixels as the
+    root size will disable few features in browser, so should be shown in percentage.
+    Default font-size is 16px, --> (10/16=0.625)*100=62.5%.
+    Example--> if we want to change the size -->.625*18 = 11.25px,so on.  */
+
+    //Larger screen sizes should be included first so that they don't overwrite smaller media queries style.
+
+    // @include respond(phone) {} - Not required becasue we have tab-port covered for phone in this case
+
+    @include respond(tab-land) {
+        font-size: 56.25%;// 1rem = 9px, 9/16 = 0.5625 --> 56.25%
+    }
+
+    @include respond(tab-port) {
+        font-size: 50%;// 1rem = 8px, 8/16 = 0.50 --> 50%
+    }
+
+    @include respond(big-desktop) {
+        font-size: 75%;// 1rem = 12px, 12/16 = 0.75 --> 75%
+    }
+
+}
+
+body {
+    box-sizing: border-box;
+    padding: 3rem;
+
+    @include respond(tab-port) {
+        padding: 0;
+    }
+}
+
+::selection {
+    color: $color-white;
+    background-color: $color-primary;
+}
